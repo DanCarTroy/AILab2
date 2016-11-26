@@ -11,10 +11,10 @@ public class OthelloBoard {
 					board[i][j] = OthelloCell.EMPTY;
 				}
 			}
-			board[3][3] = OthelloCell.BLACK;
-			board[4][4] = OthelloCell.BLACK;
-			board[3][4] = OthelloCell.WHITE;
-			board[4][3] = OthelloCell.WHITE;
+			board[3][3] = OthelloCell.WHITE;
+			board[4][4] = OthelloCell.WHITE;
+			board[3][4] = OthelloCell.BLACK;
+			board[4][3] = OthelloCell.BLACK;
 			SetTurnBlack();
 	}
 	
@@ -108,6 +108,7 @@ public class OthelloBoard {
 			//if black's turn
 			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
 				foundOpposite = true;
+				continue;
 			}
 			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
 				foundFlank = true;
