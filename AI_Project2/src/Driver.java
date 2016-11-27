@@ -7,7 +7,7 @@ public class Driver {
 		OthelloBoard b1 = new OthelloBoard();
 		b1.PrintBoard();
 		b1.ShowPossibleMoves();
-
+		
 		Scanner kb = new Scanner(System.in);
 		while (!b1.GameIsOver()){
 			System.out.print("Which position would you like to enter? ");

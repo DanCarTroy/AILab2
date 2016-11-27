@@ -16,22 +16,13 @@ public class OthelloBoard {
 					board[i][j] = OthelloCell.EMPTY;
 				}
 			}
-			/*
+			
 			board[3][3] = OthelloCell.WHITE;
 			board[4][4] = OthelloCell.WHITE;
 			board[3][4] = OthelloCell.BLACK;
 			board[4][3] = OthelloCell.BLACK;
-			*/
-			board[4][1] = OthelloCell.WHITE;
-			board[4][2] = OthelloCell.WHITE;
-			board[4][3] = OthelloCell.WHITE;
-			board[4][4] = OthelloCell.WHITE;
-			board[3][3] = OthelloCell.WHITE;
-			board[2][3] = OthelloCell.BLACK;
-			board[4][0] = OthelloCell.BLACK;
-			board[3][0] = OthelloCell.BLACK;
-			board[3][1] = OthelloCell.WHITE;
-			board[3][2] = OthelloCell.WHITE;
+			
+
 			SetTurnBlack();
 	}
 	
@@ -68,6 +59,7 @@ public class OthelloBoard {
 			for(Position p : real_list){
 				board[p.getRow()][p.getCol()] = OthelloCell.BLACK;
 			}
+			real_list.clear();
 			SetTurnWhite();
 			
 		}else if (IsLegalMove(row, col) && isWhiteTurn){
@@ -75,6 +67,7 @@ public class OthelloBoard {
 			for(Position p : real_list){
 				board[p.getRow()][p.getCol()] = OthelloCell.WHITE;
 			}
+			real_list.clear();
 			SetTurnBlack();
 			
 		}else{
@@ -92,9 +85,9 @@ public class OthelloBoard {
 		}
 		
 		//doesn't have adjacent tile of the right color, return false
-		if(!HasAdjacent(row, col)){
-			return false;
-		}
+		//if(!HasAdjacent(row, col)){
+		//	return false;
+		//}
 		
 		//move is valid at this point.
 		//if (HasAdjacent(row, col)){
@@ -118,6 +111,8 @@ public class OthelloBoard {
 			}
 		
 		System.out.println(str);
+		temp_list.clear();
+		real_list.clear();
 	}
 	
 	public boolean FindFlank(int row, int col){
@@ -157,7 +152,6 @@ public class OthelloBoard {
 			}
 			temp_list.clear();
 			foundOpposite = false;
-
 			
 			//WHITE's turn.
 			if(isWhiteTurn){
@@ -189,7 +183,7 @@ public class OthelloBoard {
 			
 		}
 		colCheck = col;
-	
+	/*
 	//check to the up (in the same row) for same color tile
 		while (rowCheck > 0){
 				rowCheck -= 1;
@@ -252,10 +246,10 @@ public class OthelloBoard {
 				
 			}
 			rowCheck = row;
-		
+	*/
 		return foundFlank;
 	}
-	
+
 	@SuppressWarnings("finally")
 	public boolean HasAdjacent(int row, int col){
 		boolean hasAdj = false;
@@ -268,7 +262,7 @@ public class OthelloBoard {
 					(GetCell(row, col+1) == OthelloCell.WHITE) ||
 					(GetCell(row+1, col+1) == OthelloCell.WHITE)))){
 				hasAdj = true;
-		}
+			}
 			else if(isWhiteTurn && ((GetCell(row-1, col-1) == OthelloCell.BLACK || (GetCell(row, col-1) == OthelloCell.BLACK) || 
 					(GetCell(row+1, col-1) == OthelloCell.BLACK)||
 					(GetCell(row-1, col) == OthelloCell.BLACK) || 
