@@ -18,7 +18,8 @@ public class Driver {
 			b1.ShowPossibleMoves();
 		}
 	
-		
+		System.out.println("Game is over!");
+		b1.CalculateScore();
 		
 	}
 

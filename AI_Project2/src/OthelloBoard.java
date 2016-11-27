@@ -6,6 +6,8 @@ public class OthelloBoard {
 	public static boolean isBlackTurn;
 	public static boolean isWhiteTurn;
 	
+	private boolean blackHasMoves;
+	private boolean whiteHasMoves;
 	private ArrayList<Position> temp_list = new ArrayList<Position>();
 	private ArrayList<Position> real_list = new ArrayList<Position>();
 	
@@ -18,9 +20,13 @@ public class OthelloBoard {
 			}
 			
 			board[3][3] = OthelloCell.WHITE;
-			board[4][4] = OthelloCell.BLACK;
+			board[4][4] = OthelloCell.WHITE;
 			board[3][4] = OthelloCell.BLACK;
 			board[4][3] = OthelloCell.BLACK;
+			
+			//both player will have possible moves at the beginning of the game
+			blackHasMoves = true;
+			whiteHasMoves = true;
 			
 			SetTurnBlack();
 	}
@@ -31,28 +37,55 @@ public class OthelloBoard {
 	}
 	
 	public void SetTurnWhite(){
+		System.out.println("White's turn.");
 		isBlackTurn = false;
 		isWhiteTurn = true;
 	}
 	
 	public void SetTurnBlack(){
+		System.out.println("Black's turn." );
 		isBlackTurn = true;
 		isWhiteTurn = false;
 	}
 	
-	//return true if the game is over (all spots are occupied)
 	public boolean GameIsOver(){
+		boolean gameIsOver = false;
+		
+		//if there are no possible moves for both player.
+		if(!whiteHasMoves && !blackHasMoves){
+			return true;
+		}
+		/*	
+		//if there is an empty space, the game is not done.
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board.length; j++){
 				if(board[i][j] == OthelloCell.EMPTY)
 					return false;
 			}
 		}
-		return true;
+		*/
+		
+		return gameIsOver;
+	}
+	
+	public void CalculateScore(){
+		int whiteScore = 0;
+		int blackScore = 0;
+		
+		for(int i = 0; i <board.length; i++){
+			for(int j = 0; j < board.length; j++){
+				if(board[i][j] == OthelloCell.WHITE)
+					whiteScore++;
+				if(board[i][j] == OthelloCell.BLACK)
+					blackScore++;
+			}
+		}
+		
+		System.out.println("Score: \nBlack: " + blackScore + "\nWhite: " + whiteScore);
 	}
 	
 	public void PlaceTile(int row, int col){
-	
+		
 		if(isBlackTurn){
 			if(IsLegalMove(row, col)){
 				board[row][col] = OthelloCell.BLACK;
@@ -100,16 +133,32 @@ public class OthelloBoard {
 	
 	public void ShowPossibleMoves(){
 		String str = "Possible Moves: ";
+		String checkStr = "Possible Moves: ";
 		
-			for(int i = 0; i < board.length; i++){
-				for(int j = 0; j < board.length; j++){
-					if(IsLegalMove(i,j)){
-						str += "(" + j + ". " + i + ") ";
-					}
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board.length; j++){
+				if(IsLegalMove(i,j)){
+					str += "(" + j + ". " + i + ") ";
 				}
 			}
+		}
 			
-		System.out.println(str);
+		if(str.equals(checkStr)){
+			System.out.println("No possible move!");
+			if(isBlackTurn){
+				System.out.println("HIIII");
+				blackHasMoves = false;
+				SetTurnWhite();
+			}
+			else if(isWhiteTurn){
+				whiteHasMoves = false;
+				SetTurnBlack();
+			}
+			checkPlayerHasMoves();
+		}else{
+			System.out.println(str);
+		}
+		
 		//just to make sure:
 		temp_list.clear();
 		real_list.clear();
@@ -718,11 +767,11 @@ public class OthelloBoard {
 			System.out.println();
 		}
 		System.out.println("--------------------------");
-		if(isBlackTurn){
-			System.out.println("Black's turn." );
-		} else{
-			System.out.println("White's turn.");
-		}
 	}
 	
+	public void checkPlayerHasMoves(){
+		if(!blackHasMoves && !whiteHasMoves){
+			GameIsOver();
+		}
+	}
 }
