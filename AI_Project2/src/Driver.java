@@ -17,9 +17,10 @@ public class Driver {
 			b1.PlaceTile(col, row);
 			b1.ShowPossibleMoves();
 		}
+	
+		
 		
 	}
 
-	//HELLO DANIEL! THIS IS MY PUSH
 	
 }
