@@ -109,6 +109,7 @@ public class OthelloBoard {
 			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
 				foundOpposite = true;
 				continue;
+				//PUSHING THIS
 			}
 			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
 				foundFlank = true;
