@@ -16,12 +16,20 @@ public class OthelloBoard {
 					board[i][j] = OthelloCell.EMPTY;
 				}
 			}
-					
-			board[3][3] = OthelloCell.WHITE;
+			
+			 
+			board[2][2] = OthelloCell.BLACK;
+			board[2][6] = OthelloCell.BLACK;
+			board[4][5] = OthelloCell.WHITE;
+			board[3][5] = OthelloCell.WHITE;
 			board[4][4] = OthelloCell.WHITE;
+			
+			/*
+			board[3][3] = OthelloCell.WHITE;
+			board[4][4] = OthelloCell.BLACK;
 			board[3][4] = OthelloCell.BLACK;
 			board[4][3] = OthelloCell.BLACK;
-			
+			*/
 			SetTurnBlack();
 	}
 	
@@ -190,7 +198,6 @@ public class OthelloBoard {
 			rowCheck = row;
 			foundOpposite = false;
 		
-	
 			//check to the right
 			while(colCheck < 7){
 				colCheck += 1;
@@ -257,6 +264,150 @@ public class OthelloBoard {
 			//reset values after looking at left direction
 			temp_list.clear();
 			rowCheck = row;
+			foundOpposite = false;
+			
+			//check diagonal up-left
+			while(rowCheck > 0 && colCheck > 0){
+				rowCheck -= 1;
+				colCheck -= 1;
+				
+				if(board[rowCheck][colCheck] == OthelloCell.EMPTY){
+					//stop looking further left
+					break;
+				}
+				if(!foundOpposite && board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//stop looking further
+					break;
+				}
+				if(board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//opposite is found, so keep going and add into temp list
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//flank found, stop looking further and copy the temp list into real list.
+					foundFlank = true;
+					for(int i = 0; i < temp_list.size(); i++){
+						Position pos = new Position(temp_list.get(i).getRow(), temp_list.get(i).getCol());
+						real_list.add(pos);
+					}
+					break;
+				}				
+			}
+			//reset values after looking at left direction
+			temp_list.clear();
+			rowCheck = row;
+			colCheck = col;
+			foundOpposite = false;
+			
+			//check diagonal up-right
+			while(rowCheck > 0 && colCheck < 7){
+				rowCheck -= 1;
+				colCheck += 1;
+				
+				if(board[rowCheck][colCheck] == OthelloCell.EMPTY){
+					//stop looking further left
+					break;
+				}
+				if(!foundOpposite && board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//stop looking further
+					break;
+				}
+				if(board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//opposite is found, so keep going and add into temp list
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//flank found, stop looking further and copy the temp list into real list.
+					foundFlank = true;
+					for(int i = 0; i < temp_list.size(); i++){
+						Position pos = new Position(temp_list.get(i).getRow(), temp_list.get(i).getCol());
+						real_list.add(pos);
+					}
+					break;
+				}				
+			}
+			//reset values after looking at left direction
+			temp_list.clear();
+			rowCheck = row;
+			colCheck = col;
+			foundOpposite = false;
+			
+			//check diagonal down-right
+			while(rowCheck < 7 && colCheck < 7){
+				rowCheck += 1;
+				colCheck += 1;
+				
+				if(board[rowCheck][colCheck] == OthelloCell.EMPTY){
+					//stop looking further left
+					break;
+				}
+				if(!foundOpposite && board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//stop looking further
+					break;
+				}
+				if(board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//opposite is found, so keep going and add into temp list
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//flank found, stop looking further and copy the temp list into real list.
+					foundFlank = true;
+					for(int i = 0; i < temp_list.size(); i++){
+						Position pos = new Position(temp_list.get(i).getRow(), temp_list.get(i).getCol());
+						real_list.add(pos);
+					}
+					break;
+				}				
+			}
+			//reset values after looking at left direction
+			temp_list.clear();
+			rowCheck = row;
+			colCheck = col;
+			foundOpposite = false;
+			
+			//check diagonal down-left
+			while(rowCheck < 7 && colCheck > 0){
+				rowCheck += 1;
+				colCheck -= 1;
+				
+				if(board[rowCheck][colCheck] == OthelloCell.EMPTY){
+					//stop looking further left
+					break;
+				}
+				if(!foundOpposite && board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//stop looking further
+					break;
+				}
+				if(board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//opposite is found, so keep going and add into temp list
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//flank found, stop looking further and copy the temp list into real list.
+					foundFlank = true;
+					for(int i = 0; i < temp_list.size(); i++){
+						Position pos = new Position(temp_list.get(i).getRow(), temp_list.get(i).getCol());
+						real_list.add(pos);
+					}
+					break;
+				}				
+			}
+			//reset values after looking at left direction
+			temp_list.clear();
+			rowCheck = row;
+			colCheck = col;
 			foundOpposite = false;
 		
 		}
@@ -398,10 +549,150 @@ public class OthelloBoard {
 			rowCheck = row;
 			foundOpposite = false;
 			
+			//check diagonal up-left
+			while(rowCheck > 0 && colCheck > 0){
+				rowCheck -= 1;
+				colCheck -= 1;
+				
+				if(board[rowCheck][colCheck] == OthelloCell.EMPTY){
+					//stop looking further left
+					break;
+				}
+				if(!foundOpposite && board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//stop looking further
+					break;
+				}
+				if(board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//opposite is found, so keep going and add into temp list
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//flank found, stop looking further and copy the temp list into real list.
+					foundFlank = true;
+					for(int i = 0; i < temp_list.size(); i++){
+						Position pos = new Position(temp_list.get(i).getRow(), temp_list.get(i).getCol());
+						real_list.add(pos);
+					}
+					break;
+				}				
+			}
+			//reset values after looking at left direction
+			temp_list.clear();
+			rowCheck = row;
+			colCheck = col;
+			foundOpposite = false;
 			
+			//check diagonal up-right
+			while(rowCheck > 0 && colCheck < 7){
+				rowCheck -= 1;
+				colCheck += 1;
+				
+				if(board[rowCheck][colCheck] == OthelloCell.EMPTY){
+					//stop looking further left
+					break;
+				}
+				if(!foundOpposite && board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//stop looking further
+					break;
+				}
+				if(board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//opposite is found, so keep going and add into temp list
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//flank found, stop looking further and copy the temp list into real list.
+					foundFlank = true;
+					for(int i = 0; i < temp_list.size(); i++){
+						Position pos = new Position(temp_list.get(i).getRow(), temp_list.get(i).getCol());
+						real_list.add(pos);
+					}
+					break;
+				}				
+			}
+			//reset values after looking at left direction
+			temp_list.clear();
+			rowCheck = row;
+			colCheck = col;
+			foundOpposite = false;
 			
+			//check diagonal down-right
+			while(rowCheck < 7 && colCheck < 7){
+				rowCheck += 1;
+				colCheck += 1;
+				
+				if(board[rowCheck][colCheck] == OthelloCell.EMPTY){
+					//stop looking further left
+					break;
+				}
+				if(!foundOpposite && board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//stop looking further
+					break;
+				}
+				if(board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//opposite is found, so keep going and add into temp list
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//flank found, stop looking further and copy the temp list into real list.
+					foundFlank = true;
+					for(int i = 0; i < temp_list.size(); i++){
+						Position pos = new Position(temp_list.get(i).getRow(), temp_list.get(i).getCol());
+						real_list.add(pos);
+					}
+					break;
+				}				
+			}
+			//reset values after looking at left direction
+			temp_list.clear();
+			rowCheck = row;
+			colCheck = col;
+			foundOpposite = false;
+			
+			//check diagonal down-left
+			while(rowCheck < 7 && colCheck > 0){
+				rowCheck += 1;
+				colCheck -= 1;
+				
+				if(board[rowCheck][colCheck] == OthelloCell.EMPTY){
+					//stop looking further left
+					break;
+				}
+				if(!foundOpposite && board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//stop looking further
+					break;
+				}
+				if(board[rowCheck][colCheck] == OthelloCell.BLACK){
+					//opposite is found, so keep going and add into temp list
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && board[rowCheck][colCheck] == OthelloCell.WHITE){
+					//flank found, stop looking further and copy the temp list into real list.
+					foundFlank = true;
+					for(int i = 0; i < temp_list.size(); i++){
+						Position pos = new Position(temp_list.get(i).getRow(), temp_list.get(i).getCol());
+						real_list.add(pos);
+					}
+					break;
+				}				
+			}
+			//reset values after looking at left direction
+			temp_list.clear();
+			rowCheck = row;
+			colCheck = col;
+			foundOpposite = false;
 		}
-		
 		
 		return foundFlank;
 	}
