@@ -27,8 +27,11 @@ public class OthelloBoard {
 			board[4][3] = OthelloCell.WHITE;
 			board[4][4] = OthelloCell.WHITE;
 			board[3][3] = OthelloCell.WHITE;
-					
+			board[2][3] = OthelloCell.BLACK;
 			board[4][0] = OthelloCell.BLACK;
+			board[3][0] = OthelloCell.BLACK;
+			board[3][1] = OthelloCell.WHITE;
+			board[3][2] = OthelloCell.WHITE;
 			SetTurnBlack();
 	}
 	
@@ -69,7 +72,11 @@ public class OthelloBoard {
 			
 		}else if (IsLegalMove(row, col) && isWhiteTurn){
 			board[row][col] = OthelloCell.WHITE;
+			for(Position p : real_list){
+				board[p.getRow()][p.getCol()] = OthelloCell.WHITE;
+			}
 			SetTurnBlack();
+			
 		}else{
 			System.out.println("Not a legal move!");
 		}
@@ -181,8 +188,71 @@ public class OthelloBoard {
 			foundOpposite = false;
 			
 		}
-		//colCheck = col;
+		colCheck = col;
 	
+	//check to the up (in the same row) for same color tile
+		while (rowCheck > 0){
+				rowCheck -= 1;
+				
+				//BLACK's turn.
+				if(isBlackTurn){
+					if(GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
+						//TODO: add to temp list all values of positions that have opposite tiles.
+						Position pos = new Position(rowCheck, colCheck);
+						temp_list.add(pos);
+						foundOpposite = true;
+						continue;
+					}
+					if(foundOpposite && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
+						//TODO: if foundFlank, copy temp list to a real list.
+						//TODO: at the end of checking if it is a legal move, for all position in the real list, flip tiles.
+						for(Position p : temp_list){
+							real_list.add(p);
+						}
+						temp_list.clear();
+						foundFlank = true;
+						break;
+					}
+					if(GetCell(rowCheck, colCheck) == OthelloCell.EMPTY){
+						//reset list and check another direction
+						temp_list.clear();
+						break;
+					}
+				}
+				temp_list.clear();
+				foundOpposite = false;
+				
+				//WHITE's turn.
+				if(isWhiteTurn){
+					if(GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
+						//TODO: add to temp list all values of positions that have opposite tiles.
+						Position pos = new Position(rowCheck, colCheck);
+						temp_list.add(pos);
+						foundOpposite = true;
+						continue;
+					}
+					if(foundOpposite && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
+						//TODO: if foundFlank, copy temp list to a real list.
+						//TODO: at the end of checking if it is a legal move, for all position in the real list, flip tiles.
+						for(Position p : temp_list){
+							real_list.add(p);
+						}
+						temp_list.clear();
+						foundFlank = true;
+						break;
+					}
+					if(GetCell(rowCheck, colCheck) == OthelloCell.EMPTY){
+						//reset list and check another direction
+						temp_list.clear();
+						break;
+					}
+				}
+				temp_list.clear();
+				foundOpposite = false;
+				
+			}
+			rowCheck = row;
+		
 		return foundFlank;
 	}
 	
