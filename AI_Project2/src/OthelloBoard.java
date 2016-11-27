@@ -17,19 +17,11 @@ public class OthelloBoard {
 				}
 			}
 			
-			 
-			board[2][2] = OthelloCell.BLACK;
-			board[2][6] = OthelloCell.BLACK;
-			board[4][5] = OthelloCell.WHITE;
-			board[3][5] = OthelloCell.WHITE;
-			board[4][4] = OthelloCell.WHITE;
-			
-			/*
 			board[3][3] = OthelloCell.WHITE;
 			board[4][4] = OthelloCell.BLACK;
 			board[3][4] = OthelloCell.BLACK;
 			board[4][3] = OthelloCell.BLACK;
-			*/
+			
 			SetTurnBlack();
 	}
 	
