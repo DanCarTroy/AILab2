@@ -1,8 +1,13 @@
+import java.util.ArrayList;
+
 public class OthelloBoard {
 	
 	public OthelloCell[][] board;
 	public static boolean isBlackTurn;
 	public static boolean isWhiteTurn;
+	
+	private ArrayList<Position> temp_list = new ArrayList<Position>();
+	private ArrayList<Position> real_list = new ArrayList<Position>();
 	
 	public OthelloBoard(){	
 		board = new OthelloCell[8][8];
@@ -105,180 +110,39 @@ public class OthelloBoard {
 		//check to the left (in the same row) for same color tile
 		while (colCheck != 0){
 			colCheck -= 1;
-			//if black's turn
-			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundOpposite = true;
-				continue;
-				//PUSHING THIS SIMON BRANCH HERE! HELLO HELLO HELLO
-			}
-			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundFlank = true;
-			}
-			//if white's turn
-			if(isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundFlank = true;
-			}
-		}
-		colCheck = col;
-		
-		foundOpposite = false;
-		//Check up direction
-		while (rowCheck != 0){
-			rowCheck -= 1;
-			//if black's turn
-			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundFlank = true;
-			}
-			//if white's turn
-			if(isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundFlank = true;
-			}
-		}
-		rowCheck = row;
-		
-		foundOpposite = false;
-		//Check right direction
-		while (colCheck < 7){
-			colCheck += 1;
-			//if black's turn
-			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundFlank = true;
-			}
-			//if white's turn
-			if(isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundFlank = true;
-			}
-		}
-		colCheck = col;
-
-		foundOpposite = false;
-		//Check down direction
-		while (rowCheck < 7){
-			rowCheck += 1;
-			//if black's turn
-			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundFlank = true;
-			}
-			//if white's turn
-			if(isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundFlank = true;
-			}
-		}
-		rowCheck = row;
-		
-		foundOpposite = false;
-		//Check diagonal up-left direction
-		while (rowCheck > 0 && colCheck > 0){
-			rowCheck -= 1;
-			colCheck -= 1;
-			//if black's turn
-			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundFlank = true;
-			}
-			//if white's turn
-			if(isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundFlank = true;
-			}
-		}
-		rowCheck = row;
-		colCheck = col;
-		
-		foundOpposite = false;
-		//Check diagonal up-right direction
-		while (rowCheck > 0 && colCheck < 7){
-			rowCheck -= 1;
-			colCheck += 1;
-			//if black's turn
-			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundFlank = true;
-			}
-			//if white's turn
-			if(isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundFlank = true;
-			}
-		}
-		rowCheck = row;
-		colCheck = col;
-		
-		foundOpposite = false;
-		//Check diagonal down-right direction
-		while (rowCheck < 7 && colCheck < 7){
-			rowCheck += 1;
-			colCheck += 1;
-			//if black's turn
-			if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundFlank = true;
-			}
-			//if white's turn
-			if(isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-				foundOpposite = true;
-			}
-			if(foundOpposite && isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-				foundFlank = true;
-			}
-		}
-		rowCheck = row;
-		colCheck = col;
-		
-		foundOpposite = false;
-		//Check diagonal down-left direction
-				while (rowCheck < 7 && colCheck > 0){
-					rowCheck += 1;
-					colCheck -= 1;
-					//if black's turn
-					if(isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-						foundOpposite = true;
-					}
-					if(foundOpposite && isBlackTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-						foundFlank = true;
-					}
-					//if white's turn
-					if(isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
-						foundOpposite = true;
-					}
-					if(foundOpposite && isWhiteTurn && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
-						foundFlank = true;
-					}
+			
+			//BLACK's turn.
+			if(isBlackTurn){
+				if(GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
+					foundOpposite = true;
+					//TODO: add to temp list all values of positions that have opposite tiles.
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
 				}
-				rowCheck = row;
-				colCheck = col;
-				
+				if(foundOpposite && GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
+					//TODO: if foundFlank, copy temp list to a real list.
+					//TODO: at the end of checking if it is a legal move, for all position in the list, flip tiles.
+					return true;
+				}
+			}
+			
+			//WHITE's turn.
+			if(isWhiteTurn){
+				if(GetCell(rowCheck, colCheck) == OthelloCell.BLACK){
+					foundOpposite = true;
+					Position pos = new Position(rowCheck, colCheck);
+					temp_list.add(pos);
+					continue;
+				}
+				if(foundOpposite && GetCell(rowCheck, colCheck) == OthelloCell.WHITE){
+					return true;
+				}
+			}
+			
+		}
+		colCheck = col;
+	
 		return foundFlank;
 	}
 	
@@ -312,8 +176,13 @@ public class OthelloBoard {
 		
 	}
 	
-	public void FlipTiles(){
-		
+	public void FlipTiles(int row, int col){
+		if(board[row][col] == OthelloCell.BLACK){
+			board[row][col] = OthelloCell.WHITE;
+		}
+		if(board[row][col] == OthelloCell.WHITE){
+			board[row][col] = OthelloCell.BLACK;
+		}
 	}
 		
 	public void PrintBoard(){
