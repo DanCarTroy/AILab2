@@ -31,20 +31,21 @@ public class OthelloBoard {
 			SetTurnBlack();
 	}
 	
-	public OthelloBoard( OthelloBoard original){
+	public OthelloBoard(OthelloBoard original){
 		
 		board = new OthelloCell[8][8];
-			for(int i = 0; i < board.length; i++){
-				for(int j = 0; j < board.length; j++){
-					board[i][j] = original.GetCell(i, j);
-				}
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board.length; j++){
+				board[i][j] = getCopyCell(original.GetCell(i, j));
 			}
+		}
 		
 			
 			//both player will have possible moves at the beginning of the game
 			blackHasMoves = original.GetBlackHasMoves();
 			whiteHasMoves = original.GetWhiteHaseMoves();
 			
+			//TODO: MIGHT BE IN WRONG PLACE
 			if(original.getIsBlackTurn())
 			{
 				original.SetTurnWhite();
@@ -99,13 +100,13 @@ public class OthelloBoard {
 	public OthelloCell GetCell(int row, int col){
 		return board[row][col];
 	}
-	
+	/*
 	//returns cell of a board position
 	public OthelloCell GetCellDeep(int row, int col){
 		
 		OthelloCell copy = board[row][col];
 	
-		/*
+		
 		OthelloCell[][] copy = new OthelloCell[8][8];
 		for(int i = 0; i < board.length; i++)
 		{
@@ -114,11 +115,11 @@ public class OthelloBoard {
 				copy[i][j] = board[]
 			}
 		}
-		*/
+		
 			
 		return copy;
 	}
-	
+	*/
 	public void SetTurnWhite(){
 		System.out.println("White's turn." + board.hashCode());
 		isBlackTurn = false;
@@ -279,7 +280,7 @@ public class OthelloBoard {
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board.length; j++){
 				if(IsLegalMove(i,j)){
-					
+					System.out.println("ADDED!");
 					possibleMoves.add(new Position(i, j));
 				}
 			}
@@ -309,6 +310,7 @@ public class OthelloBoard {
 		//just to make sure:
 		temp_list.clear();
 		real_list.clear();
+		possibleMoves.trimToSize();
 		return possibleMoves;
 		
 	}
@@ -922,5 +924,21 @@ public class OthelloBoard {
 		if(!blackHasMoves && !whiteHasMoves){
 			GameIsOver();
 		}
+	}
+	
+	public static OthelloCell getCopyCell(OthelloCell original){
+		OthelloCell copy = null;
+		
+		if(original == OthelloCell.BLACK){
+			copy =  OthelloCell.BLACK;
+		}
+		if(original == OthelloCell.WHITE){
+			copy = OthelloCell.WHITE;
+		}
+		if(original == OthelloCell.EMPTY){
+			copy = OthelloCell.EMPTY;
+		}
+		
+		return copy;
 	}
 }

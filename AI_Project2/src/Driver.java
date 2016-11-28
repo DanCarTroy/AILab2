@@ -1,4 +1,3 @@
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Driver {
@@ -56,19 +55,12 @@ public class Driver {
 		    	b1.PlaceTile(col, row);
 			}
 			
-			
-	    	
-	    
-			
-			
 		}
 	
 		System.out.println("Game is over!");
 		b1.CalculateScore();
 		
-		
-		
-		
+	
 		
 		/*
 		OthelloBoard b1 = new OthelloBoard();
