@@ -2,9 +2,9 @@ import java.util.ArrayList;
 
 public class OthelloBoard {
 	
-	public OthelloCell[][] board;
-	public static boolean isBlackTurn;
-	public static boolean isWhiteTurn;
+	private OthelloCell[][] board;
+	private boolean isBlackTurn;
+	private boolean isWhiteTurn;
 	
 	private boolean blackHasMoves;
 	private boolean whiteHasMoves;
@@ -31,6 +31,33 @@ public class OthelloBoard {
 			SetTurnBlack();
 	}
 	
+	public OthelloBoard(OthelloBoard original){
+		
+		board = new OthelloCell[8][8];
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board.length; j++){
+				board[i][j] = getCopyCell(original.GetCell(i, j));
+			}
+		}
+		
+			
+			//both player will have possible moves at the beginning of the game
+			blackHasMoves = original.GetBlackHasMoves();
+			whiteHasMoves = original.GetWhiteHaseMoves();
+			
+			//TODO: MIGHT BE IN WRONG PLACE
+			if(original.getIsBlackTurn())
+			{
+				original.SetTurnWhite();
+			}
+			else
+			{
+				original.SetTurnBlack();
+			}
+				
+			
+	}
+	
 	public boolean CheckBoardFull(){
 		boolean isFull = true;
 		//if there is an empty space, the game is not done.
@@ -51,6 +78,16 @@ public class OthelloBoard {
 		whiteHasMoves = bool;
 	}
 	
+	public boolean getIsBlackTurn()
+	{
+		return isBlackTurn;
+	}
+	
+	public boolean getIsWhiteTurn()
+	{
+		return isWhiteTurn;
+	}
+	
 	public boolean GetWhiteHaseMoves(){
 		return whiteHasMoves;
 	}
@@ -67,15 +104,34 @@ public class OthelloBoard {
 	public OthelloCell GetCell(int row, int col){
 		return board[row][col];
 	}
+	/*
+	//returns cell of a board position
+	public OthelloCell GetCellDeep(int row, int col){
+		
+		OthelloCell copy = board[row][col];
 	
+		
+		OthelloCell[][] copy = new OthelloCell[8][8];
+		for(int i = 0; i < board.length; i++)
+		{
+			for(int j = 0; j < board.length; j++)
+			{
+				copy[i][j] = board[]
+			}
+		}
+		
+			
+		return copy;
+	}
+	*/
 	public void SetTurnWhite(){
-		System.out.println("White's turn.");
+		System.out.println("White's turn." + board.hashCode());
 		isBlackTurn = false;
 		isWhiteTurn = true;
 	}
 	
 	public void SetTurnBlack(){
-		System.out.println("Black's turn." );
+		System.out.println("Black's turn." + board.hashCode());
 		isBlackTurn = true;
 		isWhiteTurn = false;
 	}
@@ -178,7 +234,10 @@ public class OthelloBoard {
 		return isValidMove;
 	}
 	
-	public void ShowPossibleMoves(){
+	public ArrayList<Position> ShowPossibleMoves(){
+
+		ArrayList<Position> possibleMoves = new ArrayList<Position>();
+		
 		String str = "Possible Moves: ";
 		String checkStr = "Possible Moves: ";
 		//TODO: make a list of possible moves for other AIs.
@@ -186,6 +245,7 @@ public class OthelloBoard {
 			for(int j = 0; j < board.length; j++){
 				if(IsLegalMove(i,j)){
 					str += "(" + j + ". " + i + ") ";
+					possibleMoves.add(new Position(i, j));
 				}
 			}
 		}
@@ -210,6 +270,52 @@ public class OthelloBoard {
 		//just to make sure:
 		temp_list.clear();
 		real_list.clear();
+		return possibleMoves;
+		
+	}
+	
+	public ArrayList<Position> generatePossibleMoves(){
+
+		ArrayList<Position> possibleMoves = new ArrayList<Position>();
+		
+		String str = "Possible Moves: ";
+		String checkStr = "Possible Moves: ";
+		//TODO: make a list of possible moves for other AIs.
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board.length; j++){
+				if(IsLegalMove(i,j)){
+					System.out.println("ADDED!");
+					possibleMoves.add(new Position(i, j));
+				}
+			}
+		}
+			
+		if(str.equals(checkStr)){
+			
+			if(isBlackTurn){
+				blackHasMoves = false;
+				isWhiteTurn = true;
+				isBlackTurn = false;
+				//SetTurnWhite();
+				//ShowPossibleMoves();
+			}
+			else if(isWhiteTurn){
+				whiteHasMoves = false;
+				isWhiteTurn = false;
+				isBlackTurn = true;
+				//SetTurnBlack();
+				//ShowPossibleMoves();
+			}
+			checkPlayerHasMoves();
+		}else{
+		
+		}
+		
+		//just to make sure:
+		temp_list.clear();
+		real_list.clear();
+		possibleMoves.trimToSize();
+		return possibleMoves;
 		
 	}
 	
@@ -822,5 +928,21 @@ public class OthelloBoard {
 		if(!blackHasMoves && !whiteHasMoves){
 			GameIsOver();
 		}
+	}
+	
+	public static OthelloCell getCopyCell(OthelloCell original){
+		OthelloCell copy = null;
+		
+		if(original == OthelloCell.BLACK){
+			copy =  OthelloCell.BLACK;
+		}
+		if(original == OthelloCell.WHITE){
+			copy = OthelloCell.WHITE;
+		}
+		if(original == OthelloCell.EMPTY){
+			copy = OthelloCell.EMPTY;
+		}
+		
+		return copy;
 	}
 }
