@@ -59,6 +59,10 @@ public class OthelloBoard {
 		return blackHasMoves;
 	}
 	
+	public OthelloCell[][] getBoard(){
+		return board;
+	}
+	
 	//returns cell of a board position
 	public OthelloCell GetCell(int row, int col){
 		return board[row][col];
