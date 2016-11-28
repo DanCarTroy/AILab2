@@ -47,11 +47,11 @@ public class OthelloBoard {
 			
 			if(original.getIsBlackTurn())
 			{
-				SetTurnWhite();
+				original.SetTurnWhite();
 			}
 			else
 			{
-				SetTurnBlack();
+				original.SetTurnBlack();
 			}
 				
 			
@@ -120,13 +120,13 @@ public class OthelloBoard {
 	}
 	
 	public void SetTurnWhite(){
-		System.out.println("White's turn.");
+		System.out.println("White's turn." + board.hashCode());
 		isBlackTurn = false;
 		isWhiteTurn = true;
 	}
 	
 	public void SetTurnBlack(){
-		System.out.println("Black's turn." );
+		System.out.println("Black's turn." + board.hashCode());
 		isBlackTurn = true;
 		isWhiteTurn = false;
 	}

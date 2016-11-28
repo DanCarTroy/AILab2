@@ -9,6 +9,7 @@ public class Driver {
 		OthelloBoard b1 = new OthelloBoard();
 		b1.PrintBoard();
 		
+		
 		Scanner kb = new Scanner(System.in);
 		
 		while (!b1.GameIsOver()){
@@ -39,11 +40,26 @@ public class Driver {
 			}
 			
 			b1.ShowPossibleMoves();
-			System.out.print("Which position would you like to enter? ");
-	    	int row = kb.nextInt();
-	    	int col = kb.nextInt();
+			
+			
+			if(b1.getIsBlackTurn())
+			{
+				Position best = Searcher.runInstance(b1);
+				System.out.println("A.I making a move! It did" + best);
+				b1.PlaceTile(best.getCol(), best.getRow());
+			}
+			else
+			{
+				System.out.print("Which position would you like to enter? ");
+				int row = kb.nextInt();
+		    	int col = kb.nextInt();
+		    	b1.PlaceTile(col, row);
+			}
+			
+			
+	    	
 	    
-			b1.PlaceTile(col, row);
+			
 			
 		}
 	

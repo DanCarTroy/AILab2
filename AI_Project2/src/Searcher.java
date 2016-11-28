@@ -13,9 +13,8 @@ public class Searcher {
 
 	}
 	
-	public static void runInstance()
+	public static Position runInstance(OthelloBoard  root)
 	{
-		OthelloBoard root = new OthelloBoard();
 		
 		BoardInstance firstInstance = new BoardInstance(root);
 		
@@ -39,7 +38,7 @@ public class Searcher {
 		
 		Integer tmp = 0; 
 		Integer max = 0;
-		Position p;
+		Position p = null;
 		for(int i = 0; i < rootMoveList.size(); i++)
 		{
 			tmp = scores.get(i);
@@ -52,7 +51,7 @@ public class Searcher {
 		}
 		
 		
-		
+		return p;
 		
 	}
 
