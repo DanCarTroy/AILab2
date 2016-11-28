@@ -18,7 +18,7 @@ public class OthelloBoard {
 					board[i][j] = OthelloCell.EMPTY;
 				}
 			}
-			
+		
 			board[3][3] = OthelloCell.WHITE;
 			board[4][4] = OthelloCell.WHITE;
 			board[3][4] = OthelloCell.BLACK;
@@ -29,6 +29,34 @@ public class OthelloBoard {
 			whiteHasMoves = true;
 			
 			SetTurnBlack();
+	}
+	
+	public boolean CheckBoardFull(){
+		boolean isFull = true;
+		//if there is an empty space, the game is not done.
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board.length; j++){
+				if(board[i][j] == OthelloCell.EMPTY)
+					return false;
+			}
+		}
+		return isFull;
+	}
+	
+	public void SetBlackHasMoves(boolean bool){
+		blackHasMoves = bool;
+	}
+	
+	public void SetWhiteHasMoves(boolean bool){
+		whiteHasMoves = bool;
+	}
+	
+	public boolean GetWhiteHaseMoves(){
+		return whiteHasMoves;
+	}
+	
+	public boolean GetBlackHasMoves(){
+		return blackHasMoves;
 	}
 	
 	//returns cell of a board position
@@ -54,16 +82,7 @@ public class OthelloBoard {
 		//if there are no possible moves for both player.
 		if(!whiteHasMoves && !blackHasMoves){
 			return true;
-		}
-		/*	
-		//if there is an empty space, the game is not done.
-		for(int i = 0; i < board.length; i++){
-			for(int j = 0; j < board.length; j++){
-				if(board[i][j] == OthelloCell.EMPTY)
-					return false;
-			}
-		}
-		*/
+		}		
 		
 		return gameIsOver;
 	}
@@ -82,6 +101,30 @@ public class OthelloBoard {
 		}
 		
 		System.out.println("Score: \nBlack: " + blackScore + "\nWhite: " + whiteScore);
+	}
+	
+	public boolean CheckTiles(){
+		boolean allSame = false;
+		boolean hasWhite = false;
+		boolean hasBlack = false;
+		
+		for(int i = 0; i < board.length; i++){
+			for(int j = 0; j < board.length; j++){
+				if(board[i][j] == OthelloCell.WHITE)
+					hasWhite = true;
+				if(board[i][j] == OthelloCell.BLACK)
+					hasBlack = true;
+				
+			}
+		}
+		
+		if(hasBlack == false || hasWhite == false){
+			allSame = true;
+		}
+		
+
+		
+		return allSame;
 	}
 	
 	public void PlaceTile(int row, int col){
@@ -134,7 +177,7 @@ public class OthelloBoard {
 	public void ShowPossibleMoves(){
 		String str = "Possible Moves: ";
 		String checkStr = "Possible Moves: ";
-		
+		//TODO: make a list of possible moves for other AIs.
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board.length; j++){
 				if(IsLegalMove(i,j)){
@@ -146,13 +189,14 @@ public class OthelloBoard {
 		if(str.equals(checkStr)){
 			System.out.println("No possible move!");
 			if(isBlackTurn){
-				System.out.println("HIIII");
 				blackHasMoves = false;
 				SetTurnWhite();
+				ShowPossibleMoves();
 			}
 			else if(isWhiteTurn){
 				whiteHasMoves = false;
 				SetTurnBlack();
+				ShowPossibleMoves();
 			}
 			checkPlayerHasMoves();
 		}else{
@@ -162,6 +206,7 @@ public class OthelloBoard {
 		//just to make sure:
 		temp_list.clear();
 		real_list.clear();
+		
 	}
 	
 	public boolean FindFlank(int row, int col){
