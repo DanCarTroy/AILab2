@@ -19,9 +19,9 @@ public class BoardInstance {
 	
 	public BoardInstance(OthelloBoard board)
 	{	
-		OthelloBoard b1 = new OthelloBoard(board);
-		
-		possibleMoves = b1.generatePossibleMoves();
+		OthelloBoard b1 = new OthelloBoard(board); //ERROR HERE! Does not copy the isBlackTurn/isWhiteTurn correctly
+		 //Error here, b1 which is the copy of the original game board(ironically called b1 in Driver) has isBlackTurn and isWhiteTurn both set to false
+		possibleMoves = b1.generatePossibleMoves();  //this will never give possible moves
 		
 	}
 	

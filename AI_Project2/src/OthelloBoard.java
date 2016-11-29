@@ -47,8 +47,8 @@ public class OthelloBoard {
 			
 			//TODO: MIGHT BE IN WRONG PLACE
 			if(original.getIsBlackTurn())
-			{
-				original.SetTurnWhite();
+			{                                        // We are supposed to copy the values of the original to this(the copy of the original) and not modifying the values of the original.
+				original.SetTurnWhite(); //ERROR HERE! We are setting b1(the original gameboard of the game) instead of the this (the copy of b1). 
 			}
 			else
 			{
@@ -250,7 +250,7 @@ public class OthelloBoard {
 			}
 		}
 			
-		if(str.equals(checkStr)){
+		if(str.equals(checkStr)){  //Checks if the Current player does not have possible moves
 			System.out.println("No possible move!");
 			if(isBlackTurn){
 				blackHasMoves = false;
@@ -264,7 +264,7 @@ public class OthelloBoard {
 			}
 			checkPlayerHasMoves();
 		}else{
-			System.out.println(str);
+			System.out.println(str); //Current player has possible moves
 		}
 		
 		//just to make sure:
@@ -285,19 +285,20 @@ public class OthelloBoard {
 			for(int j = 0; j < board.length; j++){
 				if(IsLegalMove(i,j)){
 					System.out.println("ADDED!");
+					// Need to add this back to fix this --> str += "(" + j + ". " + i + ") ";
 					possibleMoves.add(new Position(i, j));
 				}
 			}
 		}
 			
-		if(str.equals(checkStr)){
+		if(str.equals(checkStr)){  //Checks if the Current player does not have possible moves
 			
 			if(isBlackTurn){
 				blackHasMoves = false;
 				isWhiteTurn = true;
 				isBlackTurn = false;
 				//SetTurnWhite();
-				//ShowPossibleMoves();
+				//ShowPossibleMoves(); //This one would print the moves for the player that plays the next turn //Could be used for a level 2,3.. algo
 			}
 			else if(isWhiteTurn){
 				whiteHasMoves = false;
@@ -308,7 +309,7 @@ public class OthelloBoard {
 			}
 			checkPlayerHasMoves();
 		}else{
-		
+		  //Current player has possible moves
 		}
 		
 		//just to make sure:
