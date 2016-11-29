@@ -47,12 +47,12 @@ public class OthelloBoard {
 			
 			//TODO: MIGHT BE IN WRONG PLACE
 			if(original.getIsBlackTurn())
-			{                                        // We are supposed to copy the values of the original to this(the copy of the original) and not modifying the values of the original.
-				original.SetTurnWhite(); //ERROR HERE! We are setting b1(the original gameboard of the game) instead of the this (the copy of b1). 
+			{                                        
+				this.SetTurnWhite();  
 			}
 			else
 			{
-				original.SetTurnBlack();
+				this.SetTurnBlack();
 			}
 				
 			
@@ -285,7 +285,7 @@ public class OthelloBoard {
 			for(int j = 0; j < board.length; j++){
 				if(IsLegalMove(i,j)){
 					System.out.println("ADDED!");
-					// Need to add this back to fix this --> str += "(" + j + ". " + i + ") ";
+					str += "(" + j + ". " + i + ") ";
 					possibleMoves.add(new Position(i, j));
 				}
 			}

@@ -38,7 +38,7 @@ public class Searcher {
 		
 		Integer tmp = 0; 
 		Integer max = 0;
-		Position p = new Position(0, 0);  //Gotta change this
+		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
 		System.out.println(rootMoveList.size());
 		for(int i = 0; i < rootMoveList.size(); i++)
 		{
