@@ -45,7 +45,7 @@ public class Driver {
 			{
 				Position best = Searcher.runInstance(b1); // Add case there are not possible moves. empty position//ERROR HERE! Switched to white's turn inside here and this will always return position (0,0)
 				System.out.println("A.I making a move! It did" + best);
-				b1.PlaceTile(best.getCol(), best.getRow());
+				b1.PlaceTile(best.getRow(), best.getCol());
 			}
 			else
 			{

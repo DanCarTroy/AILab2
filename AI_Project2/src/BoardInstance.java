@@ -47,7 +47,9 @@ public class BoardInstance {
 		instanceBoard.PlaceTile(p.getRow(), p.getCol());
 		
 		/*ArrayList<Position> opposingList*/
-		possibleMoves = instanceBoard.generatePossibleMoves(); // List of possible moves that White can make
+		possibleMoves = instanceBoard.generatePossibleMoves();
+		possibleMoves.trimToSize();
+		System.out.println("number Of possible moves for white in this instance: "+ possibleMoves.size());// List of possible moves that White can make
 		int heuristic_score = (10 - possibleMoves.size());
 		
 		instanceScore = heuristic_score;
