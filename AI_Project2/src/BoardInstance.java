@@ -133,6 +133,36 @@ public class BoardInstance {
 		return maxheuristic;
 
 	}
+	
+	
+	/*
+	 * Calculates and returns the score for the Difference of Scores heuristic.  
+	 */
+	public int calculateInstanceScore3(OthelloBoard b, Position p){
+		//Creating instance of our own player Instance of the game
+		ArrayList<Integer> bunchOfScores = new ArrayList<Integer>();
+		OthelloBoard instanceBoard = new OthelloBoard(b);
+		OthelloBoard tempBoardBlack = new OthelloBoard(instanceBoard);
+		
+		System.out.println("\n~~~ A.I. IMAGINARY TURN (BLACK) ~~~ " + p);
+		tempBoardBlack.PlaceTile(p.getRow(), p.getCol());
+		
+		// The number of AI (Black) tiles at the end of the turn will be used as our heuristic. 
+		int blackScore = 0;
+		
+		for(int i = 0; i <tempBoardBlack.getBoard().length; i++){
+			for(int j = 0; j < tempBoardBlack.getBoard().length; j++){
+				if(tempBoardBlack.getBoard()[i][j] == OthelloCell.BLACK)
+					blackScore++;
+			}
+		}
+			
+			
+		return blackScore; // returns the number of tiles of AI (Black) player
+
+	}
+	
+	
 
 	public ArrayList<Position> getPossibleMoveList()
 	{
