@@ -60,13 +60,36 @@ public class BoardInstance {
 	public int calculateInstanceScore2(OthelloBoard b, Position p){
 		//Creating instance of our own player Instance of the game
 		OthelloBoard instanceBoard = new OthelloBoard(b);
-		System.out.println("\n~~~ A.I. IMAGINARY TURN ~~~");
+		BoardInstance opponetInstance = new BoardInstance(instanceBoard);
+		
+		System.out.println("\n~~~ A.I. IMAGINARY TURN (BLACK) ~~~");
 		instanceBoard.PlaceTile(p.getRow(), p.getCol());
 
 		int blackScore = 0;
 		int whiteScore = 0;
 		
+		ArrayList<Position> opposingMoveList = opponetInstance.getPossibleMoveList();
+		
+		for(Position x: opposingMoveList)
+		{
+			// Step 2: Instantiate a new board with position p.
+			BoardInstance childInstance = new BoardInstance();  //Board created here always sets the turn to black at the beginning
+			
+			//Creating a new instance where we get the other player's next move.
+			System.out.println("\n~~~ OPPONENT IMAGINARY TURN (WHITE) ~~~");
+			instanceBoard.PlaceTile(x.getRow(), x.getCol());
+			
+			//Step3: Get the list of possible moves of the opposing player. 
+			//childInstance.getPossibleMoveList();     /// the board of firstINstance should be here maybe!
+			int score = childInstance.calculateInstanceScore2(root, p);
+			
+			scores.add(score);
+			scores.trimToSize();
+			
+		}
+		
 		//Creating a new instance where we get the other player's next move.
+		System.out.println("\n~~~ OPPONENT IMAGINARY TURN (WHITE) ~~~");
 		instanceBoard.PlaceTile(p.getRow(), p.getCol());
 		
 		for(int i = 0; i <b.getBoard().length; i++){

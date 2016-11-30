@@ -83,7 +83,7 @@ public class Searcher {
 			BoardInstance childInstance = new BoardInstance();  //Board created here always sets the turn to black at the beginning
 			
 			//Step3: Get the list of possible moves of the opposing player. 
-			//childInstance.getPossibleMoveList();
+			//childInstance.getPossibleMoveList();     /// the board of firstINstance should be here maybe!
 			int score = childInstance.calculateInstanceScore2(root, p);
 			
 			scores.add(score);
