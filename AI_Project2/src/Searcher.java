@@ -3,8 +3,12 @@ import java.util.Random;
 
 public class Searcher {
 	
+	// We have to create 3 different list because these are global variables shared by all objects of the class
+	// and we have 3 different algorithms in the same class. 
+	
 	private static ArrayList<Integer> scores = new ArrayList<Integer>(); 
 	private static ArrayList<Integer> differenceInScores = new ArrayList<Integer>();
+	private static ArrayList<Integer> numberOfTilesPerMove = new ArrayList<Integer>();
 
 	public Searcher() {
 		// TODO Auto-generated constructor stub
@@ -132,6 +136,59 @@ public class Searcher {
 
 				int  n = rand.nextInt(rootMoveList.size()) + 0;
 				p = new Position(rootMoveList.get(n));
+			}
+			
+		}
+		
+		return p;
+	
+	}
+	
+	public static Position greedySearch(OthelloBoard  root){
+		
+		BoardInstance firstInstance = new BoardInstance(root);
+		ArrayList<Position> rootMoveList = firstInstance.getPossibleMoveList();
+		rootMoveList.trimToSize();
+		
+		for(Position p: rootMoveList)
+		{
+			// Step 2: Instantiate a new board with position p.
+			BoardInstance childInstance = new BoardInstance();  //Board created here always sets the turn to black at the beginning
+			
+			//Step3: Get the list of possible moves of the opposing player. 
+			//childInstance.getPossibleMoveList();     /// the board of firstINstance should be here maybe!
+			int score = childInstance.calculateInstanceScore3(root, p);
+			System.out.println("Score of this move is: " + score);
+			
+			numberOfTilesPerMove.add(score);
+			numberOfTilesPerMove.trimToSize();
+			
+			
+		}
+		
+		Position p = heuristicGreedySearch(rootMoveList);
+	
+		numberOfTilesPerMove.clear();
+		
+		return p;
+		
+	}
+	
+	private static Position heuristicGreedySearch(ArrayList<Position> scoreList){
+	
+		
+		Integer tmp = 0; 
+		Integer max = 0; //Collections.max(scores);
+		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
+		
+		for(int i = 0; i < scoreList.size(); i++)
+		{
+			tmp = numberOfTilesPerMove.get(i);
+			if(tmp > max)
+			{
+				max = tmp;
+				p = new Position(scoreList.get(i));
+				
 			}
 			
 		}
