@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Scanner;
 
 public class BoardInstance {
 	
@@ -42,7 +41,7 @@ public class BoardInstance {
 		
 		//instanceBoard.PrintBoard();
 		
-		System.out.println("instanceboard Constructor used");
+		System.out.println("\n~~~ A.I. IMAGINARY TURN ~~~");
 		
 		instanceBoard.PlaceTile(p.getRow(), p.getCol());
 		

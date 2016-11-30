@@ -1,5 +1,4 @@
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class Searcher {
 	
@@ -37,15 +36,42 @@ public class Searcher {
 			
 			
 		}
+		/*
+		Integer tmp = 0; 
+		Integer max = 0; //Collections.max(scores);
+		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
+		
+		for(int i = 0; i < rootMoveList.size(); i++)
+		{
+			tmp = scores.get(i);
+			if(tmp > max)
+			{
+				max = tmp;
+				p = new Position(rootMoveList.get(i));
+				
+			}
+			
+		}
+		*/
+		
+		Position p = heuristicOppositionCount(rootMoveList);
+		
+		scores.clear();
+		
+		return p;
+		
+		
+	}
+	
+	private static Position heuristicOppositionCount(ArrayList<Position> rootMoveList){
+	
 		
 		Integer tmp = 0; 
 		Integer max = 0; //Collections.max(scores);
 		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
 		
-		System.out.println(rootMoveList.size());
 		for(int i = 0; i < rootMoveList.size(); i++)
 		{
-			System.out.println("HERE!");
 			tmp = scores.get(i);
 			if(tmp > max)
 			{
@@ -56,10 +82,15 @@ public class Searcher {
 			
 		}
 		
-		scores.clear();
+		return p;
+	
+	}
+	
+	private static Position heuristicScoreDifference(ArrayList<Position> rootMoveList){
+		Position p = new Position(0, 0);
+		
 		
 		return p;
-		
 	}
 
 }
