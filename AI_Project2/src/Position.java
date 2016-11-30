@@ -62,7 +62,7 @@ public class Position {
 	
 	public String toString()
 	{
-		return "("+this.getRow() + ", " + this.getCol() + ")";
+		return "("+ this.getCol() + ", " + this.getRow() + ")";
 	}
 	
 

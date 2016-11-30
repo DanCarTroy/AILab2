@@ -284,7 +284,7 @@ public class OthelloBoard {
 		for(int i = 0; i < board.length; i++){
 			for(int j = 0; j < board.length; j++){
 				if(IsLegalMove(i,j)){
-					System.out.println("ADDED!");
+					
 					str += "(" + j + ". " + i + ") ";
 					possibleMoves.add(new Position(i, j));
 				}

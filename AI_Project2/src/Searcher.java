@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class Searcher {
 	
@@ -30,15 +31,17 @@ public class Searcher {
 			//Step3: Get the list of possible moves of the opposing player. 
 			//childInstance.getPossibleMoveList();
 			int score = childInstance.calculateInstanceScore(root, p);
-			scores.trimToSize();
+			
 			scores.add(score);
+			scores.trimToSize();
 			
 			
 		}
 		
 		Integer tmp = 0; 
-		Integer max = 0;
+		Integer max = 0; //Collections.max(scores);
 		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
+		
 		System.out.println(rootMoveList.size());
 		for(int i = 0; i < rootMoveList.size(); i++)
 		{
@@ -53,6 +56,7 @@ public class Searcher {
 			
 		}
 		
+		scores.clear();
 		
 		return p;
 		
