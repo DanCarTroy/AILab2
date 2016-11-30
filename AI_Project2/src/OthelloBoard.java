@@ -11,6 +11,7 @@ public class OthelloBoard {
 	private ArrayList<Position> temp_list = new ArrayList<Position>();
 	private ArrayList<Position> real_list = new ArrayList<Position>();
 	
+	//Default constructor of a board (state), making a starting board with 4 tiles in the middle in specific position.
 	public OthelloBoard(){	
 		board = new OthelloCell[8][8];
 			for(int i = 0; i < board.length; i++){
@@ -31,6 +32,7 @@ public class OthelloBoard {
 			SetTurnBlack();
 	}
 	
+	//Copy constructor of a board
 	public OthelloBoard(OthelloBoard original){
 		
 		board = new OthelloCell[8][8];
@@ -58,6 +60,7 @@ public class OthelloBoard {
 			
 	}
 	
+	//Check if the board is full
 	public boolean CheckBoardFull(){
 		boolean isFull = true;
 		//if there is an empty space, the game is not done.
@@ -135,7 +138,7 @@ public class OthelloBoard {
 		isBlackTurn = true;
 		isWhiteTurn = false;
 	}
-	
+	//Check if no one has moves to play
 	public boolean GameIsOver(){
 		boolean gameIsOver = false;
 		
@@ -146,7 +149,7 @@ public class OthelloBoard {
 		
 		return gameIsOver;
 	}
-	
+	//calculate the score of each player
 	public void CalculateScore(){
 		int whiteScore = 0;
 		int blackScore = 0;
@@ -162,7 +165,7 @@ public class OthelloBoard {
 		
 		System.out.println("Score: \nBlack: " + blackScore + "\nWhite: " + whiteScore);
 	}
-	
+	//check if the board has at least two colors of tiles
 	public boolean CheckTiles(){
 		boolean allSame = false;
 		boolean hasWhite = false;
@@ -186,9 +189,9 @@ public class OthelloBoard {
 		
 		return allSame;
 	}
-	
+	//Place the tile if the move is legal. If so, flip flanked tiles.
 	public void PlaceTile(int row, int col){
-		
+		//if black's turn
 		if(isBlackTurn){
 			if(IsLegalMove(row, col)){
 				board[row][col] = OthelloCell.BLACK;
@@ -220,7 +223,7 @@ public class OthelloBoard {
 		PrintBoard();
 		
 	}
-	
+	//check if move is legal
 	public boolean IsLegalMove(int row, int col){
 		boolean isValidMove = false;
 		//Cell is not empty, return false
@@ -234,6 +237,7 @@ public class OthelloBoard {
 		return isValidMove;
 	}
 	
+	//show the possible moves for the player at the current state of game.
 	public ArrayList<Position> ShowPossibleMoves(){
 
 		ArrayList<Position> possibleMoves = new ArrayList<Position>();
@@ -273,7 +277,7 @@ public class OthelloBoard {
 		return possibleMoves;
 		
 	}
-	
+	//make an array of legal position at current state of the game
 	public ArrayList<Position> generatePossibleMoves(){
 
 		ArrayList<Position> possibleMoves = new ArrayList<Position>();
@@ -320,6 +324,7 @@ public class OthelloBoard {
 		
 	}
 	
+	//check for flanks in 8 directions
 	public boolean FindFlank(int row, int col){
 		boolean foundFlank = false;
 		boolean foundOpposite = false;
@@ -893,7 +898,7 @@ public class OthelloBoard {
 		
 		return foundFlank;
 	}
-
+	//Flip the tiles
 	public void FlipTiles(Position pos){
 		Position p = new Position(pos.getRow(), pos.getCol());
 		if(board[p.getRow()][p.getCol()] == OthelloCell.BLACK){
@@ -924,13 +929,13 @@ public class OthelloBoard {
 		}
 		System.out.println("--------------------------");
 	}
-	
+	//Check if players have moves
 	public void checkPlayerHasMoves(){
 		if(!blackHasMoves && !whiteHasMoves){
 			GameIsOver();
 		}
 	}
-	
+	//Copy cell (deep)
 	public static OthelloCell getCopyCell(OthelloCell original){
 		OthelloCell copy = null;
 		
