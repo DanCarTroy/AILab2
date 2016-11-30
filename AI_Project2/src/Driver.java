@@ -44,7 +44,7 @@ public class Driver {
 			
 			if(b1.getIsBlackTurn())
 			{
-				Position best = Searcher.runInstance(b1); // Add case there are not possible moves. empty position//ERROR HERE! Switched to white's turn inside here and this will always return position (0,0)
+				Position best = Searcher.runInstance2(b1); // Add case there are not possible moves. empty position//ERROR HERE! Switched to white's turn inside here and this will always return position (0,0)
 				System.out.println("\n========= A.I making a move! It played " + best + ". =========");
 				b1.PlaceTile(best.getRow(), best.getCol());
 				System.out.println("White's turn.");

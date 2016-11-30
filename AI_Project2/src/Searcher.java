@@ -36,23 +36,6 @@ public class Searcher {
 			
 			
 		}
-		/*
-		Integer tmp = 0; 
-		Integer max = 0; //Collections.max(scores);
-		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
-		
-		for(int i = 0; i < rootMoveList.size(); i++)
-		{
-			tmp = scores.get(i);
-			if(tmp > max)
-			{
-				max = tmp;
-				p = new Position(rootMoveList.get(i));
-				
-			}
-			
-		}
-		*/
 		
 		Position p = heuristicOppositionCount(rootMoveList);
 		
@@ -86,11 +69,35 @@ public class Searcher {
 	
 	}
 	
-	private static Position heuristicScoreDifference(ArrayList<Position> rootMoveList){
-		Position p = new Position(0, 0);
+	
+	
+	public static Position runInstance2(OthelloBoard  root){
 		
+		BoardInstance firstInstance = new BoardInstance(root);
+		ArrayList<Position> rootMoveList = firstInstance.getPossibleMoveList();
+		rootMoveList.trimToSize();
+		
+		for(Position p: rootMoveList)
+		{
+			// Step 2: Instantiate a new board with position p.
+			BoardInstance childInstance = new BoardInstance();  //Board created here always sets the turn to black at the beginning
+			
+			//Step3: Get the list of possible moves of the opposing player. 
+			//childInstance.getPossibleMoveList();
+			int score = childInstance.calculateInstanceScore2(root, p);
+			
+			scores.add(score);
+			scores.trimToSize();
+			
+		}
+
+		Position p = heuristicOppositionCount(rootMoveList);
+		
+		scores.clear();
 		
 		return p;
+		
 	}
+	
 
 }

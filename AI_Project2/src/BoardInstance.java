@@ -56,6 +56,38 @@ public class BoardInstance {
 		
 		return heuristic_score;
 	}
+	
+	public int calculateInstanceScore2(OthelloBoard b, Position p){
+		//Creating instance of our own player Instance of the game
+		OthelloBoard instanceBoard = new OthelloBoard(b);
+		System.out.println("\n~~~ A.I. IMAGINARY TURN ~~~");
+		instanceBoard.PlaceTile(p.getRow(), p.getCol());
+
+		int blackScore = 0;
+		int whiteScore = 0;
+		
+		//Creating a new instance where we get the other player's next move.
+		instanceBoard.PlaceTile(p.getRow(), p.getCol());
+		
+		for(int i = 0; i <b.getBoard().length; i++){
+			for(int j = 0; j < b.getBoard().length; j++){
+				if(b.getBoard()[i][j] == OthelloCell.BLACK)
+					blackScore++;
+			}
+		}
+		
+		for(int i = 0; i <b.getBoard().length; i++){
+			for(int j = 0; j < b.getBoard().length; j++){
+				if(b.getBoard()[i][j] == OthelloCell.WHITE)
+					whiteScore++;
+			}
+		}
+		
+		int heuristic_score = blackScore - whiteScore;
+		
+		return heuristic_score;
+
+	}
 
 	public ArrayList<Position> getPossibleMoveList()
 	{
