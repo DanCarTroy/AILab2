@@ -10,15 +10,8 @@ public class Searcher {
 	private static ArrayList<Integer> differenceInScores = new ArrayList<Integer>();
 	private static ArrayList<Integer> numberOfTilesPerMove = new ArrayList<Integer>();
 
-	public Searcher() {
-		// TODO Auto-generated constructor stub
-	}
-
-	public static void main(String[] args) {
-		// TODO Auto-generated method stub
-
-	}
 	
+	//For the FIRST Heuristic, we run instance of the board (make nodes)
 	public static Position runInstance(OthelloBoard  root)
 	{
 		
@@ -33,16 +26,16 @@ public class Searcher {
 			// Step 2: Instantiate a new board with position p.
 			BoardInstance childInstance = new BoardInstance();  //Board created here always sets the turn to black at the beginning
 			
-			//Step3: Get the list of possible moves of the opposing player. 
-			//childInstance.getPossibleMoveList();
+			//Step3: Get the list of possible moves of the opposing player, And calculate The score of the child state
 			int score = childInstance.calculateInstanceScore(root, p);
 			
+			//Step4: add scores into an array
 			scores.add(score);
 			scores.trimToSize();
 			
 			
 		}
-		
+		//Step5: ***
 		Position p = heuristicOppositionCount(rootMoveList);
 		
 		scores.clear();
@@ -51,7 +44,7 @@ public class Searcher {
 		
 		
 	}
-	
+	//Step5: Take scores of the array, and find the maximum of it, then make return the position that is best.
 	private static Position heuristicOppositionCount(ArrayList<Position> scoreList){
 	
 		
@@ -75,19 +68,21 @@ public class Searcher {
 	
 	}
 	
+	//For the SECOND Heuristic, we run instance of the board (make nodes)
 	public static Position runInstance2(OthelloBoard  root){
 		
+		//Step1: make a copy of the root board (state).
 		BoardInstance firstInstance = new BoardInstance(root);
 		ArrayList<Position> rootMoveList = firstInstance.getPossibleMoveList();
 		rootMoveList.trimToSize();
 		
+		// Step 2: For each possible move of black, calculate the score
 		for(Position p: rootMoveList)
 		{
-			// Step 2: Instantiate a new board with position p.
+			
 			BoardInstance childInstance = new BoardInstance();  //Board created here always sets the turn to black at the beginning
 			
 			//Step3: Get the list of possible moves of the opposing player. 
-			//childInstance.getPossibleMoveList();     /// the board of firstINstance should be here maybe!
 			int score = childInstance.calculateInstanceScore2(root, p);
 			
 			differenceInScores.add(score);
@@ -96,6 +91,7 @@ public class Searcher {
 
 		differenceInScores.trimToSize();
 		
+		//compare the array of score
 		Position p = heuristicDifferenceScore(rootMoveList);
 		
 		//differenceInScores.clear();
@@ -105,15 +101,14 @@ public class Searcher {
 	}
 	
 	private static Position heuristicDifferenceScore(ArrayList<Position> rootMoveList){
-		//The reason why we have to set max to -9999, is because the first move of white will ALWAYS 
-		//have equal number of tiles as black, therefore we have to set max value to super low to no get 0
-		//heuristic score.
+		//The first move of white will ALWAYS 
+		//have equal number of tiles as black
 	
-		
 		Integer tmp = 0; 
 		Integer max = 0; //Collections.max(scores);
 		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
 		
+		//Choose best position based on their score from the index.
 		for(int i = 0; i < rootMoveList.size(); i++)
 		{
 			tmp = differenceInScores.get(i);
