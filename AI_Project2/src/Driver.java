@@ -13,20 +13,20 @@ public class Driver {
 		
 		while (!b1.GameIsOver()){
 			
-			if(b1.CheckTiles()){ //check if all tiles placed are the same.
+			if(b1.CheckTiles()){ //check if all tiles placed are of the same color. A condition to end the game.
 				b1.SetBlackHasMoves(false);
 				b1.SetWhiteHasMoves(false);
 				break;
 			}
-			if(b1.CheckBoardFull()){ //check if the board is full
+			if(b1.CheckBoardFull()){ //check if the board is full. Condition to end the game.
 				break;
 			}
 			
-			if(b1.GetBlackHasMoves() == false && b1.GetWhiteHaseMoves() == false){ //Check if both players dont have available moves
+			if(b1.GetBlackHasMoves() == false && b1.GetWhiteHaseMoves() == false){ //Check if both players don't have available moves. Ends game.
 				break;
 			}
 			
-			if(b1.GetBlackHasMoves() == false || b1.GetWhiteHaseMoves() == false){ //check if one of them have, continue.
+			if(b1.GetBlackHasMoves() == false || b1.GetWhiteHaseMoves() == false){ // If the current player doesn't have a move skip turn.
 				if(b1.GetBlackHasMoves() == false){
 					b1.SetBlackHasMoves(true);
 					
@@ -43,7 +43,7 @@ public class Driver {
 			
 			if(b1.getIsBlackTurn())
 			{
-				Position best = Searcher.runInstance(b1);
+				Position best = Searcher.runInstance(b1); // Add case there are not possible moves. empty position//ERROR HERE! Switched to white's turn inside here and this will always return position (0,0)
 				System.out.println("A.I making a move! It did" + best);
 				b1.PlaceTile(best.getCol(), best.getRow());
 			}
