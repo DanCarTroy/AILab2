@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class BoardInstance {
 	
@@ -59,56 +60,54 @@ public class BoardInstance {
 	
 	public int calculateInstanceScore2(OthelloBoard b, Position p){
 		//Creating instance of our own player Instance of the game
+		ArrayList<Integer> bunchOfScores = new ArrayList<Integer>();
 		OthelloBoard instanceBoard = new OthelloBoard(b);
-		BoardInstance opponetInstance = new BoardInstance(instanceBoard);
+		OthelloBoard tempBoardBlack = new OthelloBoard(instanceBoard);
 		
-		System.out.println("\n~~~ A.I. IMAGINARY TURN (BLACK) ~~~");
-		instanceBoard.PlaceTile(p.getRow(), p.getCol());
+		System.out.println("\n~~~ A.I. IMAGINARY TURN (BLACK) ~~~ " + p);
+		tempBoardBlack.PlaceTile(p.getRow(), p.getCol());
+		BoardInstance opponetInstance = new BoardInstance(tempBoardBlack);
+		
 
-		int blackScore = 0;
-		int whiteScore = 0;
 		
 		ArrayList<Position> opposingMoveList = opponetInstance.getPossibleMoveList();
 		
 		for(Position x: opposingMoveList)
 		{
-			// Step 2: Instantiate a new board with position p.
-			BoardInstance childInstance = new BoardInstance();  //Board created here always sets the turn to black at the beginning
+			int blackScore = 0;
+			int whiteScore = 0;
 			
+			// Step 2: for each position of white, place the tile
+			OthelloBoard tempBoardwhite = new OthelloBoard(tempBoardBlack);
 			//Creating a new instance where we get the other player's next move.
-			System.out.println("\n~~~ OPPONENT IMAGINARY TURN (WHITE) ~~~");
-			instanceBoard.PlaceTile(x.getRow(), x.getCol());
+			System.out.println("\n~~~ OPPONENT IMAGINARY TURN (WHITE) ~~~ " + x);
+			tempBoardwhite.PlaceTile(x.getRow(), x.getCol());
 			
-			//Step3: Get the list of possible moves of the opposing player. 
-			//childInstance.getPossibleMoveList();     /// the board of firstINstance should be here maybe!
-			int score = childInstance.calculateInstanceScore2(root, p);
-			
-			scores.add(score);
-			scores.trimToSize();
-			
-		}
-		
-		//Creating a new instance where we get the other player's next move.
-		System.out.println("\n~~~ OPPONENT IMAGINARY TURN (WHITE) ~~~");
-		instanceBoard.PlaceTile(p.getRow(), p.getCol());
-		
-		for(int i = 0; i <b.getBoard().length; i++){
-			for(int j = 0; j < b.getBoard().length; j++){
-				if(b.getBoard()[i][j] == OthelloCell.BLACK)
-					blackScore++;
+			//Step3: calculate score of each player then make the difference/
+			// the board of firstINstance should be here maybe!
+			for(int i = 0; i <tempBoardwhite.getBoard().length; i++){
+				for(int j = 0; j < tempBoardwhite.getBoard().length; j++){
+					if(tempBoardwhite.getBoard()[i][j] == OthelloCell.BLACK)
+						blackScore++;
+					if(tempBoardwhite.getBoard()[i][j] == OthelloCell.WHITE)
+						whiteScore++;
+				}
 			}
+			
+			int posScore = blackScore - whiteScore;
+			System.out.println("heuristic score: " + posScore);
+			bunchOfScores.add(posScore);
+			
 		}
-		
-		for(int i = 0; i <b.getBoard().length; i++){
-			for(int j = 0; j < b.getBoard().length; j++){
-				if(b.getBoard()[i][j] == OthelloCell.WHITE)
-					whiteScore++;
-			}
+
+		if(bunchOfScores.size() == 0){
+			return 0;
 		}
+		bunchOfScores.trimToSize();
+		int maxheuristic = Collections.max(bunchOfScores);
+		bunchOfScores.clear();
 		
-		int heuristic_score = blackScore - whiteScore;
-		
-		return heuristic_score;
+		return maxheuristic;
 
 	}
 

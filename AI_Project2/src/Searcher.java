@@ -1,8 +1,10 @@
 import java.util.ArrayList;
+import java.util.Random;
 
 public class Searcher {
 	
 	private static ArrayList<Integer> scores = new ArrayList<Integer>(); 
+	private static ArrayList<Integer> differenceInScores = new ArrayList<Integer>();
 
 	public Searcher() {
 		// TODO Auto-generated constructor stub
@@ -46,20 +48,20 @@ public class Searcher {
 		
 	}
 	
-	private static Position heuristicOppositionCount(ArrayList<Position> rootMoveList){
+	private static Position heuristicOppositionCount(ArrayList<Position> scoreList){
 	
 		
 		Integer tmp = 0; 
 		Integer max = 0; //Collections.max(scores);
 		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
 		
-		for(int i = 0; i < rootMoveList.size(); i++)
+		for(int i = 0; i < scoreList.size(); i++)
 		{
 			tmp = scores.get(i);
 			if(tmp > max)
 			{
 				max = tmp;
-				p = new Position(rootMoveList.get(i));
+				p = new Position(scoreList.get(i));
 				
 			}
 			
@@ -68,8 +70,6 @@ public class Searcher {
 		return p;
 	
 	}
-	
-	
 	
 	public static Position runInstance2(OthelloBoard  root){
 		
@@ -86,18 +86,58 @@ public class Searcher {
 			//childInstance.getPossibleMoveList();     /// the board of firstINstance should be here maybe!
 			int score = childInstance.calculateInstanceScore2(root, p);
 			
-			scores.add(score);
-			scores.trimToSize();
+			differenceInScores.add(score);
 			
 		}
 
-		Position p = heuristicOppositionCount(rootMoveList);
+		differenceInScores.trimToSize();
 		
-		scores.clear();
+		Position p = heuristicDifferenceScore(rootMoveList);
+		
+		//differenceInScores.clear();
 		
 		return p;
 		
 	}
 	
+	private static Position heuristicDifferenceScore(ArrayList<Position> rootMoveList){
+		//The reason why we have to set max to -9999, is because the first move of white will ALWAYS 
+		//have equal number of tiles as black, therefore we have to set max value to super low to no get 0
+		//heuristic score.
+	
+		
+		Integer tmp = 0; 
+		Integer max = 0; //Collections.max(scores);
+		Position p = new Position(0, 0);  //Gotta change this. Update: maybe not. 
+		
+		for(int i = 0; i < rootMoveList.size(); i++)
+		{
+			tmp = differenceInScores.get(i);
+			if(tmp > max)
+			{
+				max = tmp;
+				p = new Position(rootMoveList.get(i));
+				
+			}
+			else if(tmp == max){
+				System.out.println("equals num of tiles");
+				Random rand = new Random();
+
+				int  n = rand.nextInt(rootMoveList.size()) + 0;
+				p = new Position(rootMoveList.get(n));
+
+			}
+			else{
+				Random rand = new Random();
+
+				int  n = rand.nextInt(rootMoveList.size()) + 0;
+				p = new Position(rootMoveList.get(n));
+			}
+			
+		}
+		
+		return p;
+	
+	}
 
 }
