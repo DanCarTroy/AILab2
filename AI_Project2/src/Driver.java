@@ -6,6 +6,7 @@ public class Driver {
 		
 		
 		OthelloBoard b1 = new OthelloBoard();
+		System.out.println("Black's turn.");
 		b1.PrintBoard();
 		
 		
@@ -43,9 +44,10 @@ public class Driver {
 			
 			if(b1.getIsBlackTurn())
 			{
-				Position best = Searcher.runInstance(b1); // Add case there are not possible moves. empty position//ERROR HERE! Switched to white's turn inside here and this will always return position (0,0)
-				System.out.println("A.I making a move! It did" + best);
+				Position best = Searcher.runInstance2(b1); // Add case there are not possible moves. empty position//ERROR HERE! Switched to white's turn inside here and this will always return position (0,0)
+				System.out.println("\n========= A.I making a move! It played " + best + ". =========");
 				b1.PlaceTile(best.getRow(), best.getCol());
+				System.out.println("White's turn.");
 			}
 			else
 			{
@@ -53,6 +55,7 @@ public class Driver {
 				int row = kb.nextInt();
 		    	int col = kb.nextInt();
 		    	b1.PlaceTile(col, row);
+		    	System.out.println("Black's turn.");
 			}
 			
 		}
