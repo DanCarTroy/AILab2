@@ -6,22 +6,33 @@ public class BoardInstance {
 	
 	private int instanceScore;
 	
+	private OthelloBoard instanceOfABoard;
+	
 	private ArrayList<Position> possibleMoves;
 	
-
+	
 	public BoardInstance() {
 		// TODO Auto-generated constructor stub
 		
 		instanceScore = 0;
 		possibleMoves = new ArrayList<Position>();
+		instanceOfABoard = new OthelloBoard();
 		
 	}
 	
 	public BoardInstance(OthelloBoard board)
 	{	
-		OthelloBoard b1 = new OthelloBoard(board); //ERROR HERE! Does not copy the isBlackTurn/isWhiteTurn correctly
-		 //Error here, b1 which is the copy of the original game board(ironically called b1 in Driver) has isBlackTurn and isWhiteTurn both set to false
-		possibleMoves = b1.generatePossibleMoves();  //this will never give possible moves
+		instanceOfABoard = new OthelloBoard(board);
+		instanceScore = 0;
+		possibleMoves = instanceOfABoard.generatePossibleMoves();  
+		
+	}
+	
+	public BoardInstance(OthelloBoard board, boolean switchTurn)
+	{	
+		instanceOfABoard = new OthelloBoard(board);
+		instanceScore = 0;
+		possibleMoves = instanceOfABoard.generatePossibleMoves();  
 		
 	}
 	
@@ -33,7 +44,7 @@ public class BoardInstance {
 		
 		System.out.println("instanceboard Constructor used");
 		
-		instanceBoard.PlaceTile(p.getCol(), p.getRow());
+		instanceBoard.PlaceTile(p.getRow(), p.getCol());
 		
 		/*ArrayList<Position> opposingList*/
 		possibleMoves = instanceBoard.generatePossibleMoves(); // List of possible moves that White can make

@@ -48,11 +48,11 @@ public class OthelloBoard {
 			//TODO: MIGHT BE IN WRONG PLACE
 			if(original.getIsBlackTurn())
 			{                                        
-				this.SetTurnWhite();  
+				this.SetTurnBlack();  //This has to be black because we are making a copy of original
 			}
-			else
+			else // if White has the turn in the original board 
 			{
-				this.SetTurnBlack();
+				this.SetTurnWhite(); //This has to be white because we are making a copy of original
 			}
 				
 			
@@ -255,12 +255,12 @@ public class OthelloBoard {
 			if(isBlackTurn){
 				blackHasMoves = false;
 				SetTurnWhite();
-				ShowPossibleMoves();
+				ShowPossibleMoves(); // Note: Gotta review this
 			}
 			else if(isWhiteTurn){
 				whiteHasMoves = false;
 				SetTurnBlack();
-				ShowPossibleMoves();
+				ShowPossibleMoves();   // Note: GOtta review this
 			}
 			checkPlayerHasMoves();
 		}else{
@@ -292,7 +292,7 @@ public class OthelloBoard {
 		}
 			
 		if(str.equals(checkStr)){  //Checks if the Current player does not have possible moves
-			
+			// If the A.I does not have possible moves it is going to set the board to the other player. 
 			if(isBlackTurn){
 				blackHasMoves = false;
 				isWhiteTurn = true;

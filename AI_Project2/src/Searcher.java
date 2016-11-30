@@ -19,13 +19,13 @@ public class Searcher {
 		BoardInstance firstInstance = new BoardInstance(root);
 		
 		// Step 1: Get possible move list for initial player.
-		ArrayList<Position> rootMoveList = firstInstance.getPossibleMoveList();
+		ArrayList<Position> rootMoveList = firstInstance.getPossibleMoveList();  //Shallow copy confirmed in debugger. 
 		rootMoveList.trimToSize();
 		
 		for(Position p: rootMoveList)
 		{
 			// Step 2: Instantiate a new board with position p.
-			BoardInstance childInstance = new BoardInstance();
+			BoardInstance childInstance = new BoardInstance();  //Board created here always sets the turn to black at the beginning
 			
 			//Step3: Get the list of possible moves of the opposing player. 
 			//childInstance.getPossibleMoveList();
