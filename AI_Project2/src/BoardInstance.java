@@ -1,18 +1,23 @@
 import java.util.ArrayList;
 import java.util.Collections;
 
+/*
+ * This class represents a given instance of an imaginary game. 
+ * It is what the AI uses to predicts its moves for future turns. 
+ */
 public class BoardInstance {
 	
 	
 	private int instanceScore;
 	
-	private OthelloBoard instanceOfABoard;
+	// Used to hold a snapshot of the board at a given point of time during the game.
+	private OthelloBoard instanceOfABoard; 
 	
 	private ArrayList<Position> possibleMoves;
 	
-	
+	// Default constructor
 	public BoardInstance() {
-		// TODO Auto-generated constructor stub
+		
 		
 		instanceScore = 0;
 		possibleMoves = new ArrayList<Position>();
@@ -20,6 +25,10 @@ public class BoardInstance {
 		
 	}
 	
+	/**
+	 * Copy constructor 
+	 * @param board An OthelloBoard that we want to copy (deep).
+	 */
 	public BoardInstance(OthelloBoard board)
 	{	
 		instanceOfABoard = new OthelloBoard(board);
@@ -28,6 +37,9 @@ public class BoardInstance {
 		
 	}
 	
+	/*
+	 * Copy constructor with a flag to switch turn. 
+	 */
 	public BoardInstance(OthelloBoard board, boolean switchTurn)
 	{	
 		instanceOfABoard = new OthelloBoard(board);
@@ -36,6 +48,9 @@ public class BoardInstance {
 		
 	}
 	
+	/*
+	 * Calculates and return the score for the Opposition Count heuristic. 
+	 */
 	public int calculateInstanceScore(OthelloBoard b, Position p) {
 				
 		OthelloBoard instanceBoard = new OthelloBoard(b);
@@ -58,6 +73,9 @@ public class BoardInstance {
 		return heuristic_score;
 	}
 	
+	/*
+	 * Calculates and returns the score for the Difference of Scores heuristic.  
+	 */
 	public int calculateInstanceScore2(OthelloBoard b, Position p){
 		//Creating instance of our own player Instance of the game
 		ArrayList<Integer> bunchOfScores = new ArrayList<Integer>();
@@ -94,9 +112,13 @@ public class BoardInstance {
 				}
 			}
 			
+			// Difference between number of tiles of AI(Black player) and the opponent (Whote player).
+ 
 			int posScore = blackScore - whiteScore;
 			System.out.println("heuristic score: " + posScore);
-			bunchOfScores.add(posScore);
+			
+			//Score will be added to a list so that it can be compared to the scores of other moves.
+			bunchOfScores.add(posScore);    
 			
 		}
 
@@ -104,7 +126,8 @@ public class BoardInstance {
 			return 0;
 		}
 		bunchOfScores.trimToSize();
-		int maxheuristic = Collections.max(bunchOfScores);
+		// Calculates the maximum score. AI will use it to choose its move. 
+		int maxheuristic = Collections.max(bunchOfScores); 
 		bunchOfScores.clear();
 		
 		return maxheuristic;

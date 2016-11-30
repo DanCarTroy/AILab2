@@ -1,10 +1,17 @@
+/* Comp 472 Project 2.
+ * Professor: Sabine Bergler
+ * Group:  Simon Nguyen (266444457)
+ *         Daniel Carrera (26729886)
+ */
 import java.util.Scanner;
 
 public class Driver {
 
 	public static void main(String[] args) {
 		
+		// AI VS PLAYER GAME
 		
+		// Creates the board of the game
 		OthelloBoard b1 = new OthelloBoard();
 		System.out.println("Black's turn.");
 		b1.PrintBoard();
@@ -13,6 +20,8 @@ public class Driver {
 		Scanner kb = new Scanner(System.in);
 		
 		while (!b1.GameIsOver()){
+			
+			// Conditions to end the game
 			
 			if(b1.CheckTiles()){ //check if all tiles placed are of the same color. A condition to end the game.
 				b1.SetBlackHasMoves(false);
@@ -39,17 +48,17 @@ public class Driver {
 				continue;
 			}
 			
-			b1.ShowPossibleMoves();
+			b1.ShowPossibleMoves(); // Prints the possible moves of the player
 			
 			
-			if(b1.getIsBlackTurn())
+			if(b1.getIsBlackTurn()) // Black's turn 
 			{
 				Position best = Searcher.runInstance2(b1); // Add case there are not possible moves. empty position//ERROR HERE! Switched to white's turn inside here and this will always return position (0,0)
 				System.out.println("\n========= A.I making a move! It played " + best + ". =========");
 				b1.PlaceTile(best.getRow(), best.getCol());
 				System.out.println("White's turn.");
 			}
-			else
+			else  //White's turn
 			{
 				System.out.print("Which position would you like to enter? ");
 				int row = kb.nextInt();
@@ -61,9 +70,11 @@ public class Driver {
 		}
 	
 		System.out.println("Game is over!");
-		b1.CalculateScore();
+		b1.CalculateScore();  //Prints the number of tiles of Black and White. 
 		
-	
+		
+		
+	    // PLAYER VS PLAYER GAME
 		
 		/*
 		OthelloBoard b1 = new OthelloBoard();
