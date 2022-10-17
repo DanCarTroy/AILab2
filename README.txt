@@ -6,6 +6,5 @@ REMOTE***REMOTE***!!!!
 DAN_TROY
 TEST in local!
 Amazing
-7834783489
 New changes coming up!
-76
+The best is local
